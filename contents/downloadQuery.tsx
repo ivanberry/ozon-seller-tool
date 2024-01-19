@@ -34,7 +34,7 @@ const downloadCSV = async () => {
 const downloadData = async () => {
     let downloadData = []
     let page = 50
-    let time = 2
+    let time = 8
     const response = await fetch("https://seller.ozon.ru/api/site/searchteam/Stats/query/v3", {
         "headers": {
             "accept": "application/json, text/plain, */*",
@@ -58,7 +58,7 @@ const downloadData = async () => {
         "method": "POST",
         "mode": "cors",
         "credentials": "include",
-        "body": JSON.stringify({ "text": "", "sorting": { "attribute": "count", "order": "desc" }, "limit": "50", page })
+        "body": JSON.stringify({ "text": "", "sorting": { "attribute": "count", "order": "desc" }, "limit": "50", offset: page * time })
     });
     const { data } = await response.json()
     downloadData.push(...data)
@@ -87,7 +87,7 @@ const downloadData = async () => {
             "method": "POST",
             "mode": "cors",
             "credentials": "include",
-            "body": JSON.stringify({ "text": "", "sorting": { "attribute": "count", "order": "desc" }, "limit": "50", page })
+            "body": JSON.stringify({ "text": "", "sorting": { "attribute": "count", "order": "desc" }, "limit": "50", offset: page * time })
         });
         const { data } = await response.json()
         downloadData.push(...data)
