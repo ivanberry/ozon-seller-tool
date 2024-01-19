@@ -12,12 +12,34 @@ export const getStyle = () => {
     return style
 }
 
+const COLUMN_HEADER_NAME_MAP = new Map([
+    ['avgCaRub', '评价售价卢布'],
+    ['avgCountItems', '搜索结果中的商品'],
+    ['ca', '添加到购物车的转化率 '],
+    ['count', '查询热度'],
+    ['itemsViews', '商品浏览'],
+    ['query', '搜索关键字'],
+    ['softQueryCount', 'softQueryCount'],
+    ['softQueryShare', 'softQueryShare'],
+    ['uniqQueriesWCa', '添加到购物车的次数'],
+    ['uniqSellers', '竞争对手'],
+    ['usersWithoutInterectionCount', 'usersWithoutInterectionCount'],
+    ['usersWithoutInterectionShare', 'usersWithoutInterectionShare'],
+    ['zrCount', 'zrCount'],
+    ['zrShare', 'zrShare']
+])
+
 const downloadCSV = async () => {
     let data = await downloadData();
 
+
     let csvContent = '';
-    data.forEach((row) => {
-        csvContent += Object.values(row).join(',') + '\n';
+    data.forEach((row, index) => {
+        if (index === 0) {
+            csvContent = Object.keys(row).map(key => COLUMN_HEADER_NAME_MAP.get(key)).join(',') + '\n' + Object.values(row).join(',') + '\n';
+        } else {
+            csvContent += Object.values(row).join(',') + '\n';
+        }
     });
 
     // 创建下载链接
@@ -34,7 +56,7 @@ const downloadCSV = async () => {
 const downloadData = async () => {
     let downloadData = []
     let page = 50
-    let time = 8
+    let time = 1
     const response = await fetch("https://seller.ozon.ru/api/site/searchteam/Stats/query/v3", {
         "headers": {
             "accept": "application/json, text/plain, */*",
@@ -62,7 +84,7 @@ const downloadData = async () => {
     });
     const { data } = await response.json()
     downloadData.push(...data)
-    if (time > 0) {
+    while (time > 0) {
         time--
         const response = await fetch("https://seller.ozon.ru/api/site/searchteam/Stats/query/v3", {
             "headers": {
