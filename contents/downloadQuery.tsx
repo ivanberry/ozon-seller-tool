@@ -15,18 +15,17 @@ export const getStyle = () => {
 const downloadCSV = async () => {
     let data = await downloadData();
 
-    // 创建Excel文件
-    let workbook = XLSX.utils.book_new();
-    let worksheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-    let excelData = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    let csvContent = '';
+    data.forEach((row) => {
+        csvContent += Object.values(row).join(',') + '\n';
+    });
 
     // 创建下载链接
-    let blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     let url = URL.createObjectURL(blob);
     let link = document.createElement('a');
     link.href = url;
-    link.download = 'data.xlsx';
+    link.download = 'data.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
