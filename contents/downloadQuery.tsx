@@ -120,7 +120,7 @@ const downloadData = async () => {
 
 const downloadButton = () => {
     return (
-        <button onClick={downloadCSV}>Download</button>
+        <button onClick={downloadCSV}>采集数据</button>
     )
 }
 
