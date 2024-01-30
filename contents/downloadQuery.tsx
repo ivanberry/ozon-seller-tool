@@ -56,7 +56,7 @@ const downloadCSV = async () => {
 const downloadData = async () => {
     let downloadData = []
     let page = 50
-    let time = 1
+    let time = 10
     const response = await fetch("https://seller.ozon.ru/api/site/searchteam/Stats/query/v3", {
         "headers": {
             "accept": "application/json, text/plain, */*",
