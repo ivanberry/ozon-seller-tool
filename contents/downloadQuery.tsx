@@ -1,6 +1,5 @@
 import cssText from "data-text:~contents/downloadQuery.css"
 import type { PlasmoCSConfig } from "plasmo"
-import XLSX from 'xlsx'
 
 export const config: PlasmoCSConfig = {
     matches: ["https://seller.ozon.ru/*"]
@@ -56,7 +55,7 @@ const downloadCSV = async () => {
 const downloadData = async () => {
     let downloadData = []
     let page = 50
-    let time = 10
+    let time = 20
     const response = await fetch("https://seller.ozon.ru/api/site/searchteam/Stats/query/v3", {
         "headers": {
             "accept": "application/json, text/plain, */*",
@@ -120,7 +119,7 @@ const downloadData = async () => {
 
 const downloadButton = () => {
     return (
-        <button onClick={downloadCSV}>采集数据</button>
+        <button id="download" onClick={downloadCSV}>采集数据</button>
     )
 }
 
