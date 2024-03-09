@@ -12,20 +12,20 @@ export const getStyle = () => {
 }
 
 const COLUMN_HEADER_NAME_MAP = new Map([
-    ['avgCaRub', '评价售价卢布'],
+    ['avgCaRub', '平均售价卢布'],
     ['avgCountItems', '搜索结果中的商品'],
-    ['ca', '添加到购物车的转化率 '],
+    ['ca', '添加到购物车的转化率'],
     ['count', '查询热度'],
     ['itemsViews', '商品浏览'],
     ['query', '搜索关键字'],
-    ['softQueryCount', 'softQueryCount'],
-    ['softQueryShare', 'softQueryShare'],
+    ['softQueryCount', '具有类似结果的查询'],
+    ['softQueryShare', '具有类似结果的查询份额'],
     ['uniqQueriesWCa', '添加到购物车的次数'],
     ['uniqSellers', '竞争对手'],
-    ['usersWithoutInterectionCount', 'usersWithoutInterectionCount'],
-    ['usersWithoutInterectionShare', 'usersWithoutInterectionShare'],
-    ['zrCount', 'zrCount'],
-    ['zrShare', 'zrShare']
+    ['usersWithoutInterectionCount', '无操作查询'],
+    ['usersWithoutInterectionShare', '无操作查询份额'],
+    ['zrCount', '无结果查询'],
+    ['zrShare', '无结果查询比例']
 ])
 
 const downloadCSV = async () => {
@@ -46,7 +46,7 @@ const downloadCSV = async () => {
     let url = URL.createObjectURL(blob);
     let link = document.createElement('a');
     link.href = url;
-    link.download = 'data.csv';
+    link.download = `ozon_${new Date().getMonth() + 1}_${new Date().getDate()}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
